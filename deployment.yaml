@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: wfp2_Flask_API
-          image: http://192.168.0.218:32782/wfp2_Flask_API_image:latest
+          image: http://192.168.0.218:32782/wfp2_flask_api:latest
           ports:
             - containerPort: 8080
