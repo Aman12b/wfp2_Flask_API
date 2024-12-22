@@ -13,7 +13,7 @@ spec:
         app: my-app
     spec:
       containers:
-        - name: wfp2_Flask_API
+        - name: wfp2_flask_api
           image: http://192.168.0.218:32782/wfp2_flask_api:latest
           ports:
             - containerPort: 8080
