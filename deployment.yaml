@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: wfp2-flask-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: my-app
+      app: wfp2-flask-api
   template:
     metadata:
       labels:
-        app: my-app
+        app: wfp2-flask-api
     spec:
       containers:
-        - name: wfp2_flask_api
-          image: http://192.168.0.218:32782/wfp2_flask_api:latest
+        - name: wfp2-flask-api
+          image: http://192.168.0.218:32782/wfp2-flask-api:latest
           ports:
             - containerPort: 8080
