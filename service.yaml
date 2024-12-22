@@ -4,7 +4,7 @@ metadata:
   name: wfp2-flask-api
 spec:
   selector:
-    app: my-app
+    app: wfp2-flask-api
   ports:
     - protocol: TCP
       port: 80
