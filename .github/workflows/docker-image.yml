@@ -30,6 +30,8 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
+        kubectl delete deployment wfp2-flask-api
+        kubectl delete service wfp2-flask-api
         kubectl apply -f deployment.yaml
         kubectl apply -f service.yaml
         kubectl rollout restart deployment/wfp2-flask-api
