@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: wfp2-flask-api
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: wfp2-flask-api
