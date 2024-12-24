@@ -12,6 +12,16 @@ spec:
       labels:
         app: wfp2-flask-api
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - wfp2-flask-api
+              topologyKey: "kubernetes.io/hostname"
       containers:
         - name: wfp2-flask-api
           image: 192.168.0.218:32782/wfp2-flask-api:latest
