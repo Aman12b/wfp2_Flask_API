@@ -1,49 +1,57 @@
 from flask import Flask, request, jsonify
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-from flask_cors import CORS
+import numpy as np
 
-# Initialize the Flask app
 app = Flask(__name__)
-CORS(app)
-# Load the model and tokenizer
-tokenizer = AutoTokenizer.from_pretrained("t5-small")
-model = AutoModelForSeq2SeqLM.from_pretrained("t5-small")
 
-@app.route("/", methods=["GET"])
-def home():
-    return jsonify({"message": "Welcome to the Text Summarization API!"})
+# Global storage for incoming data
 
-@app.route("/summarize", methods=["POST"])
-def summarize():
+@app.route('/stats', methods=['POST'])
+def compute_statistics():
+
     try:
-        data = request.get_json()
+        # Extract data from the request
+        numbers = request.json.get('numbers', [])
+        if not isinstance(numbers, list) or not all(isinstance(n, (int, float)) for n in numbers):
+            return jsonify({"error": "Invalid input. Provide a list of numbers."}), 400
 
-        text = data.get("text", "")
-        max_length = data.get("max_length", 50)
+        # Add the incoming numbers to the data store
+        data_store = numbers
 
-        if not text:
-            return jsonify({"error": "No text provided for summarization"}), 400
+        if not data_store:
+            return jsonify({"error": "No data available for statistics."}), 400
 
-        input_ids = tokenizer(
-            f"summarize: {text}",
-            return_tensors="pt",
-            max_length=512,
-            truncation=True
-        ).input_ids
+        # Compute statistics
+        data = np.array(data_store)
+        mean = np.mean(data)
+        median = np.median(data)
+        variance = np.var(data)
+        std_dev = np.std(data)
+        min_val = np.min(data)
+        max_val = np.max(data)
+        q1 = np.percentile(data, 25)  # First quartile
+        q3 = np.percentile(data, 75)  # Third quartile
+        iqr = q3 - q1  # Interquartile range
 
-        outputs = model.generate(
-            input_ids,
-            max_length=max_length,
-            num_beams=5,
-            early_stopping=True
-        )
+        # Construct response
+        response = {
+            "boxplot": {
+                "min": min_val,
+                "q1": q1,
+                "median": median,
+                "q3": q3,
+                "max": max_val,
+                "iqr": iqr
+            },
+            "mean": mean,
+            "variance": variance,
+            "std_dev": std_dev,
+            "total_data_points": len(data_store),
+            "all_data": data_store  # Optional: can be removed for large datasets
+        }
 
-        summary = tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-        return jsonify({"summary": summary})
+        return jsonify(response), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
