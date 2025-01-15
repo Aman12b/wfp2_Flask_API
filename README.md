@@ -1,34 +1,29 @@
-Projektübersicht
-Dieses Projekt stellt eine RESTful API bereit, die mit dem Flask-Framework entwickelt wurde. Die Bereitstellung erfolgt über Docker-Container, und die Orchestrierung wird mit Kubernetes durchgeführt.
+# wfp2_Flask_API
 
-Verzeichnisstruktur
-Die Hauptkomponenten des Projekts sind:
+Dieses Repository enthält eine Flask-basierte API, die für den Einsatz in Docker- und Kubernetes-Umgebungen entwickelt wurde.
 
-main.py: Die zentrale Anwendung, die die Flask-App initialisiert und die Endpunkte definiert.
+## Übersicht
 
-requirements.txt: Listet die Python-Abhängigkeiten auf, die für die Ausführung der Anwendung erforderlich sind.
+Die API ist eine RESTful-Anwendung, die mit dem Flask-Framework erstellt wurde. Sie bietet flexible Bereitstellungsoptionen, darunter Docker-Container und Kubernetes-Orchestrierung.
 
-Dockerfile: Enthält die Anweisungen zum Erstellen des Docker-Images für die Anwendung.
+## Verzeichnisstruktur
 
-deployment.yaml und service.yaml: Kubernetes-Konfigurationsdateien für die Bereitstellung und den Dienst der Anwendung.
+- **`main.py`**: Enthält die Hauptlogik der Flask-Anwendung und definiert die Endpunkte.
+- **`requirements.txt`**: Listet alle erforderlichen Python-Pakete auf.
+- **`Dockerfile`**: Definiert die Schritte zum Erstellen eines Docker-Images.
+- **`deployment.yaml`** und **`service.yaml`**: Kubernetes-Konfigurationsdateien für Deployment und Service.
 
-Hauptkomponenten und Funktionalitäten
-main.py
-In dieser Datei wird die Flask-Anwendung erstellt und konfiguriert. Typischerweise werden hier die Routen (Endpunkte) definiert, die die API bereitstellt. Jeder Endpunkt entspricht einer Funktion, die auf HTTP-Anfragen reagiert und entsprechende Antworten liefert.
+## Voraussetzungen
 
-requirements.txt
-Diese Datei listet alle Python-Pakete auf, die für die Anwendung benötigt werden. Durch die Installation dieser Abhängigkeiten wird sichergestellt, dass die Anwendung in einer konsistenten Umgebung läuft.
+- **Python 3.6+**: Für die lokale Entwicklung.
+- **Docker**: Zum Containerisieren der Anwendung.
+- **Kubernetes**: Für die Bereitstellung in einer Cluster-Umgebung.
 
-Dockerfile
-Das Dockerfile definiert, wie das Docker-Image für die Anwendung erstellt wird. Es legt die Basis-Image, kopiert den Anwendungscode, installiert die Abhängigkeiten und legt den Befehl fest, der beim Starten des Containers ausgeführt wird.
+## Installation und Ausführung
 
-deployment.yaml und service.yaml
-Diese YAML-Dateien enthalten die Kubernetes-Konfigurationen für die Bereitstellung der Anwendung. deployment.yaml definiert, wie viele Replikate der Anwendung ausgeführt werden sollen und welche Container verwendet werden. service.yaml legt fest, wie die Anwendung innerhalb des Kubernetes-Clusters zugänglich gemacht wird.
+### Lokale Ausführung
 
-Einrichtung und Ausführung
-Voraussetzungen
-Python 3.6+: Für die lokale Entwicklung und Ausführung.
-
-Docker: Zum Containerisieren der Anwendung.
-
-Kubernetes: Für die Orchestrierung der Container in einer Cluster-Umgebung.
+1. **Repository klonen**:
+   ```bash
+   git clone https://github.com/Aman12b/wfp2_Flask_API.git
+   cd wfp2_Flask_API
